@@ -1,0 +1,35 @@
+{% extends 'wiki/layout.html' %}
+
+{% block body %}
+  <div class="form-container">  
+    <h2>Edit Article:</h2>
+    <small><a href = "https://www.markdownguide.org/cheat-sheet/">Use Markdown To Format Your Content</a></small>
+
+        <div class="centered-form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="action-buttons">
+                    <button class="btn" type="submit">Save Changes</button> 
+                </div>  
+            </form>
+        
+            <div class="action-buttons">
+                <a href="{% url 'read' article.id %}" class="btn">Cancel</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h3>Recently Edited</h3>
+    
+                {% for a in recent_articles %}
+                    <div class = sidebar-link>
+                        <p><a href="{% url 'read' a.id %}">{{ a.title_html|safe }}</a> </p>
+                        <p> {{ a.updated_at }} </p>
+                    </div>
+
+                    <hr width = "100%">
+                {% empty %}
+                    <p>No recent articles.</p>
+                {% endfor %}
+{% endblock %}

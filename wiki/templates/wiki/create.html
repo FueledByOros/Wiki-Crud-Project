@@ -1,0 +1,20 @@
+
+{% extends 'wiki/layout.html' %}
+
+{% block body %}
+<div class="form-container">
+        <h2>Create a New Article</h2>
+        <small><a href = "https://www.markdownguide.org/cheat-sheet/">Use Markdown To Format Your Content</a></small>
+    <form method="POST" class="centered-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="action-buttons">
+            <button class="btn" type="submit">Create Article</button>
+        </div>  
+
+        <div class="action-buttons">
+                <a href="{% url 'home' %}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div> 
+{% endblock %}     

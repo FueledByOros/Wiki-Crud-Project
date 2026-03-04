@@ -1,0 +1,10 @@
+{% extends 'wiki/layout.html' %}
+
+    {% block body %}
+        <div class="error-page">
+            <div class="error-container">
+                <p>Sorry, we couldn't find any matching pages.</p>
+                <p>Try a different search term or <a href="{% url 'home' %}">go back home</a>.</p>
+            </div>
+        </div>
+    {% endblock %}

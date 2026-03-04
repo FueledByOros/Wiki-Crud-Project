@@ -1,0 +1,27 @@
+{% extends "wiki/layout.html" %}
+
+{% block body %}
+
+<h2>Search Results</h2>
+
+{% if query %}
+    <p>Results for "<strong>{{ query }}</strong>"</p>
+
+    {% if results %}
+        <div class="search-results-container">
+                {% for article in results %}
+                        <a href="{% url 'read' article.id %}">{{ article.title_html|safe }}</a>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+
+{% else %}
+    <p>Please enter a search term.</p>
+{% endif %}
+
+<h3><a href="{% url 'home' %}">Back to Homepage</a></h3>
+
+{% endblock %}

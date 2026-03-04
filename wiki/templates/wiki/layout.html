@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>WikiJuice</title>
+        <link href="{% static 'wiki/styles.css' %}" rel="stylesheet">
+    </head>
+    
+
+    <body>
+        <div class="sidebar">
+            <img src="{% static 'wiki/images/wikiJlogo.png' %}" class="sidebar-logo">
+
+            <form method="GET" action="{% url 'home' %}" style="margin-bottom: 20px;">
+                <button type="submit">Home</button>
+            </form>
+
+            <form method="GET" action="{% url 'search'%}" style="margin-bottom: 20px;">
+                {% csrf_token %}
+                <input type="text" name="q" placeholder="Search article by title..." required>
+                <button type="submit">Go</button>
+            </form>
+
+            <form method="GET" action="{% url 'random_article' %}" style="margin-bottom: 20px;">
+                <button type="submit">Random Article</button>
+            </form>
+            <ul>
+                <li><a href="{% url 'create' %}">Create A New Article</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+                {% block body %}
+                {% endblock %}
+                 <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="totally-not-suspicious">Good Code Company Policy</a>
+
+        </div>      
+
+    </body>
+
+</html>
