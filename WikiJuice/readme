@@ -1,0 +1,35 @@
+WikiJuice is a Django-based wiki application that allows users to create, read, edit, and delete articles written in 
+Markdown.
+
+Features:
+Create, edit, and delete wiki articles
+Markdown support for article content
+Safe Markdown rendering (XSS protection)
+Search functionality
+Custom 404 error page
+Sidebar navigation layout
+Input validation and error handling
+Recent article detection
+Clean UI with responsive layout
+
+To get started:
+Clone my github repo:
+
+git clone https://github.com/FueledByOros/Wiki-Crud-Project.git
+cd wikijuice
+
+Install Everything you need:
+
+pip install -r requirements.txt
+
+Make Migrations:
+
+python manage.py migrate
+
+Run The App:
+
+python manage.py rumserver --insecure
+
+Visit:
+
+http://127.0.0.1:8000/home
