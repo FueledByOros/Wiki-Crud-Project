@@ -47,7 +47,6 @@ def create(request):
 
 def search(request):
     articles = Article.objects.all()
-    recent_articles = [a for a in articles if utils.recent_check(a)]
     query = request.GET.get("q", "").strip()
     results = Article.objects.none()
 
@@ -67,13 +66,11 @@ def search(request):
     if not results and query:
         return render(request, "wiki/errors.html", {
             "query": query,
-            "recent_articles": recent_articles
         })
 
     return render(request, "wiki/search.html", {
         "query": query,
         "results": results,
-        "recent_articles": recent_articles
     })
 
 def read(request, article_id):
