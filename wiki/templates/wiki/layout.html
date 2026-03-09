@@ -16,8 +16,7 @@
                 <button type="submit">Home</button>
             </form>
 
-            <form method="GET" action="{% url 'search'%}" style="margin-bottom: 20px;">
-                {% csrf_token %}
+            <form method="GET" action="{% url 'search' %}" style="margin-bottom: 20px;">
                 <input type="text" name="q" placeholder="Search article by title..." required>
                 <button type="submit">Go</button>
             </form>

@@ -59,32 +59,25 @@ def search(request):
     print("[DEBUG] search view called")
     query = request.GET.get("q", "").strip()
     print(f"[DEBUG] query: '{query}'")
-    results = Article.objects.none()
-    plain_query = query.strip().replace(' ', '')
-    print(f"[DEBUG] plain_query: '{plain_query}'")
+    results = []
 
     if query:
+        normalized_query = query.replace(' ', '').replace('#', '').lower()
+
         all_articles = Article.objects.all()
-        print(f"[DEBUG] total articles: {all_articles.count()}")
+
+        # Exact title match → redirect directly
         for article in all_articles:
-            plain_title = article.title.lstrip('# ').strip().replace(' ', '')
-            if plain_title.lower() == plain_query.lower():
-                print(f"[DEBUG] Exact match found: {article.id} - {article.title}")
+            normalized_title = article.title.replace(' ', '').replace('#', '').lower()
+            if normalized_title == normalized_query:
                 return redirect('read', article_id=article.id)
 
-        for a in Article.objects.all():
-            title_nospace = a.title.replace(' ', '')
-            content_nospace = a.content.replace(' ', '')
-            print(f"[DEBUG] {a.id}: title_nospace='{title_nospace}', content_nospace='{content_nospace}'")
-            
-        results = Article.objects.annotate(
-            title_nospace=Replace('title', Value(' '), Value('')),
-            content_nospace=Replace('content', Value(' '), Value(''))
-        ).filter(
-            Q(title_nospace__icontains=plain_query) |
-            Q(content_nospace__icontains=plain_query)
-        )
-        print(f"[DEBUG] number of search results: {results.count()}")
+        # Partial match on title or content
+        for article in all_articles:
+            normalized_title = article.title.replace(' ', '').replace('#', '').lower()
+            normalized_content = article.content.replace(' ', '').lower()
+            if normalized_query in normalized_title or normalized_query in normalized_content:
+                results.append(article)
 
     return render(request, "wiki/search.html", {
         "query": query,
