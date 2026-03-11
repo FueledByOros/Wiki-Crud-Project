@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'wikijuice',
         'USER': 'wikijuice_user',
         'PASSWORD': 'password123',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
