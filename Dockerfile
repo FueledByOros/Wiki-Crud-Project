@@ -2,13 +2,13 @@
 FROM python:3.12
 
 # Set working directory
-WORKDIR /app
+WORKDIR /WikiJuice
 
 # Copy project files
 COPY . .
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN pip install -r WikiJuice/requirements.txt
 
 # Run the app
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
